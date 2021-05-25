@@ -32,7 +32,8 @@ function makeCanvasElement() {
   return canvasElement;
 }
 
-function initHolidayOverlay({ numFlakes, drawLines, imageSrc, maxSpeed }) {
+function initHolidayOverlay({ name, numFlakes, drawLines, imageSrc, maxSpeed }) {
+  console.log(`Enabling ${name} mode`);
   const flakes = [];
   const windowW = window.innerWidth;
   const windowH = window.innerHeight;
@@ -156,13 +157,15 @@ const isDecember = validateDate(12, makeRange(1, 25));
 
 if (isMemorialDay) {
   initHolidayOverlay({
+    name: "Memorial Day",
     numFlakes: 3,
     drawLines: false,
     imageSrc: ["https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/flag-united-states_1f1fa-1f1f8.png"],
     maxSpeed: 2,
   });
-} else if (isMemorialDay) {
+} else if (isOctober) {
   initHolidayOverlay({
+    name: "Spookstober",
     numFlakes: 4,
     drawLines: false,
     imageSrc: ["http://clipart-library.com/images/M8iGa75ca.png", "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/281/jack-o-lantern_1f383.png"],
@@ -170,6 +173,7 @@ if (isMemorialDay) {
   });
 } else if (isThanksgiving) {
   initHolidayOverlay({
+    name: "Thanksgiving",
     numFlakes: 5,
     drawLines: false,
     imageSrc: ["https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/281/turkey_1f983.png"],
@@ -177,6 +181,7 @@ if (isMemorialDay) {
   });
 } else if (isDecember) {  
   initHolidayOverlay({
+    name: "Christmas",
     numFlakes: 20,
     drawLines: false,
     maxSpeed: 3,
