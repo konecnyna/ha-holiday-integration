@@ -229,6 +229,12 @@ function run() {
 }
 
 window.test = () => {
+  if (window.running) {
+    window.running = false
+    return;
+  }
+
+  window.running = true;
   initHolidayOverlay({
     numFlakes: 10,
     drawLines: false,
