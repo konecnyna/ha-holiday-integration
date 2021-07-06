@@ -35,10 +35,10 @@ function makeCanvasElement() {
   canvasElement.style.position = "absolute";
   canvasElement.style.pointerEvents = "none";
   
-  //document.body.appendChild(canvasElement);
-  const view = document.querySelector("body > home-assistant").shadowRoot.querySelector("home-assistant-main").shadowRoot.querySelector("partial-panel-resolver > ha-panel-lovelace").shadowRoot.querySelector("hui-root").shadowRoot.querySelector("#layout")
-  view.appendChild(canvasElement);
+  //const view = document.querySelector("body > home-assistant").shadowRoot.querySelector("home-assistant-main").shadowRoot.querySelector("partial-panel-resolver > ha-panel-lovelace").shadowRoot.querySelector("hui-root").shadowRoot.querySelector("#layout")
+  // view.appendChild(canvasElement);
   
+  document.body.appendChild(canvasElement);
   return canvasElement;
 }
 
@@ -178,7 +178,8 @@ const isNewYears = validateDate(12, makeRange(29, 31)) ||
 function run() {
   if (isMemorialDay || isFourth) {
     initHolidayOverlay({
-      numFlakes: 3,
+      name: isMemorialDay ? "Memorial Day" : "4th of July",
+      numFlakes: 6,
       drawLines: false,
       imageSrc: [
         "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/flag-united-states_1f1fa-1f1f8.png",
@@ -187,16 +188,7 @@ function run() {
     });
   } else if (isOctober) {
     initHolidayOverlay({
-      numFlakes: 4,
-      drawLines: false,
-      imageSrc: [
-        "http://clipart-library.com/images/M8iGa75ca.png",
-        "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/281/jack-o-lantern_1f383.png",
-      ],
-      maxSpeed: 1,
-    });
-  } else if (isOctober) {
-    initHolidayOverlay({
+      name: "Halloween",
       numFlakes: 4,
       drawLines: false,
       imageSrc: [
@@ -207,6 +199,7 @@ function run() {
     });
   } else if (isThanksgiving) {
     initHolidayOverlay({
+      name: "Thanksgiving",
       numFlakes: 5,
       drawLines: false,
       imageSrc: [
@@ -216,12 +209,14 @@ function run() {
     });
   } else if (isDecember) {
     initHolidayOverlay({
+      name: "Christmas",
       numFlakes: 30,
       drawLines: false,
       maxSpeed: 3,
     });
   } else if (isNewYears) {
     initHolidayOverlay({
+      name: "New Years",
       numFlakes: 5,
       drawLines: false,
       imageSrc: [
@@ -231,6 +226,7 @@ function run() {
     });
   }
 }
+
 
 window.test = () => {
   if (window.running) {
