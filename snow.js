@@ -34,7 +34,11 @@ function makeCanvasElement() {
   canvasElement.style.backgroundColor = "transparent";
   canvasElement.style.position = "absolute";
   canvasElement.style.pointerEvents = "none";
-  document.body.appendChild(canvasElement);
+  
+  //document.body.appendChild(canvasElement);
+  const view = document.querySelector("body > home-assistant").shadowRoot.querySelector("home-assistant-main").shadowRoot.querySelector("partial-panel-resolver > ha-panel-lovelace").shadowRoot.querySelector("hui-root").shadowRoot.querySelector("#layout")
+  view.appendChild(canvasElement);
+  
   return canvasElement;
 }
 
