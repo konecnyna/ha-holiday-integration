@@ -156,7 +156,8 @@ function distanceBetween(vector1, vector2) {
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-function makeRange(startDay, numberOfDays) {
+function makeRange(startDay, endDay) {
+  const numberOfDays = (endDay + 1) - startDay;
   return Array.from(new Array(numberOfDays), (x, i) => i + startDay);
 }
 
