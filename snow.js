@@ -170,7 +170,7 @@ console.log("Loaded ha-snow.js");
 
 const isMemorialDay = validateDate(5, makeRange(29, 31));
 const isFourth = validateDate(7, makeRange(3, 5));
-const isOctober = validateDate(11, makeRange(1, 31));
+const isOctober = validateDate(10, makeRange(1, 31));
 const isThanksgiving = validateDate(11, makeRange(20, 26));
 const isDecember = validateDate(12, makeRange(1, 25));
 const isNewYears = validateDate(12, makeRange(29, 31)) ||
