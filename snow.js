@@ -171,6 +171,7 @@ console.log("Loaded ha-snow.js");
 const isMemorialDay = validateDate(5, makeRange(29, 31));
 const isFourth = validateDate(7, makeRange(3, 5));
 const isOctober = validateDate(10, makeRange(1, 31));
+const isFall = validateDate(11, makeRange(1, 20));
 const isThanksgiving = validateDate(11, makeRange(20, 26));
 const isDecember = validateDate(12, makeRange(1, 25));
 const isNewYears = validateDate(12, makeRange(29, 31)) ||
@@ -196,6 +197,14 @@ function run() {
         "http://clipart-library.com/images/M8iGa75ca.png",
         "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/281/jack-o-lantern_1f383.png",
       ],
+      maxSpeed: 1,
+    });    
+  } else if (isFall) {
+    initHolidayOverlay({
+      name: "Fall",
+      numFlakes: 3,
+      drawLines: false,
+      imageSrc: ["https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/whatsapp/302/maple-leaf_1f341.png"],
       maxSpeed: 1,
     });
   } else if (isThanksgiving) {
