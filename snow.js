@@ -195,7 +195,9 @@ function run() {
       name: isMemorialDay ? "Memorial Day" : "4th of July",
       numFlakes: 6,
       drawLines: false,
-      imageSrc: ["🇺🇸"],
+      imageSrc: [
+        "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/flag-united-states_1f1fa-1f1f8.png",
+      ],
       maxSpeed: 2,
     });
   } else if (isOctober) {
@@ -204,13 +206,15 @@ function run() {
       numFlakes: 4,
       drawLines: false,
       imageSrc: [
-        "assets/spooky_ghost.png",
-        "assets/pumpkin.png",
+        "/assets/spooky_ghost.png",
+        "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/281/jack-o-lantern_1f383.png",
       ],
       maxSpeed: 1,
     });
   } else if (isFall) {
-    const leafImg = "assets/leaf.png";
+    const leafImg =
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/whatsapp/302/maple-leaf_1f341.png";
+
     let items = 3;
     const imgs = [leafImg];
     if (isThanksgiving) {
@@ -218,6 +222,7 @@ function run() {
       imgs.push("🦃");
       imgs.push("🍂");
     }
+
     initHolidayOverlay({
       name: "Fall",
       numFlakes: items,
@@ -239,7 +244,9 @@ function run() {
       name: "New Years",
       numFlakes: 5,
       drawLines: false,
-      imageSrc: ["assets/popper.png"],
+      imageSrc: [
+        "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/274/party-popper_1f389.png",
+      ],
       maxSpeed: 2,
     });
   }
