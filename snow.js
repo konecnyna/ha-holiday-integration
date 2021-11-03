@@ -2,9 +2,8 @@
 /** Adapted from https://codepen.io/pimskie/pen/jEVPNx **/
 
 window.running = true;
-window.start = () => window.running = true;
-window.stop = () => window.running = false;
-
+window.start = () => (window.running = true);
+window.stop = () => (window.running = false);
 
 function Flake(x, y, maxSpeedConfig) {
   const maxWeight = 5;
@@ -34,17 +33,21 @@ function makeCanvasElement() {
   canvasElement.style.backgroundColor = "transparent";
   canvasElement.style.position = "absolute";
   canvasElement.style.pointerEvents = "none";
-  
+
   //const view = document.querySelector("body > home-assistant").shadowRoot.querySelector("home-assistant-main").shadowRoot.querySelector("partial-panel-resolver > ha-panel-lovelace").shadowRoot.querySelector("hui-root").shadowRoot.querySelector("#layout")
   // view.appendChild(canvasElement);
-  
+
   document.body.appendChild(canvasElement);
   return canvasElement;
 }
 
-function initHolidayOverlay(
-  { name, numFlakes, drawLines, imageSrc, maxSpeed },
-) {
+function initHolidayOverlay({
+  name,
+  numFlakes,
+  drawLines,
+  imageSrc,
+  maxSpeed,
+}) {
   console.log(`Enabling ${name} mode`);
   const flakes = [];
   const windowW = window.innerWidth;
@@ -119,9 +122,18 @@ function loop(ctx, flakes, drawLines, imageSrc, windowW, windowH) {
 
     ctx.beginPath();
     if (imageSrc && imageSrc.length) {
+      const src = imageSrc[i % imageSrc.length];
       const background = new Image();
-      background.src = imageSrc[i % imageSrc.length];
-      ctx.drawImage(background, flakeA.x, flakeA.y, 32, 32);
+      if (src.includes("http") || src.includes("/")) {
+        background.src = src;
+        ctx.drawImage(background, flakeA.x, flakeA.y, 32, 32);
+      } else {
+        ctx.font = "20pt serif";
+        ctx.fillStyle = "red";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(src, flakeA.x, flakeA.y);
+      }
     } else {
       ctx.arc(flakeA.x, flakeA.y, flakeA.weight, 0, 2 * Math.PI, false);
       ctx.fillStyle = "rgba(255, 255, 255, " + flakeA.alpha + ")";
@@ -157,7 +169,7 @@ function distanceBetween(vector1, vector2) {
 }
 
 function makeRange(startDay, endDay) {
-  const numberOfDays = (endDay + 1) - startDay;
+  const numberOfDays = endDay + 1 - startDay;
   return Array.from(new Array(numberOfDays), (x, i) => i + startDay);
 }
 
@@ -171,11 +183,11 @@ console.log("Loaded ha-snow.js");
 const isMemorialDay = validateDate(5, makeRange(29, 31));
 const isFourth = validateDate(7, makeRange(3, 5));
 const isOctober = validateDate(10, makeRange(1, 31));
-const isFall = validateDate(11, makeRange(1, 20));
+const isFall = validateDate(11, makeRange(1, 26));
 const isThanksgiving = validateDate(11, makeRange(20, 26));
 const isDecember = validateDate(12, makeRange(1, 25));
-const isNewYears = validateDate(12, makeRange(29, 31)) ||
-  validateDate(12, makeRange(1, 1));
+const isNewYears =
+  validateDate(12, makeRange(29, 31)) || validateDate(12, makeRange(1, 1));
 
 function run() {
   if (isMemorialDay || isFourth) {
@@ -183,9 +195,7 @@ function run() {
       name: isMemorialDay ? "Memorial Day" : "4th of July",
       numFlakes: 6,
       drawLines: false,
-      imageSrc: [
-        "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/flag-united-states_1f1fa-1f1f8.png",
-      ],
+      imageSrc: ["🇺🇸"],
       maxSpeed: 2,
     });
   } else if (isOctober) {
@@ -194,33 +204,33 @@ function run() {
       numFlakes: 4,
       drawLines: false,
       imageSrc: [
-        "http://clipart-library.com/images/M8iGa75ca.png",
-        "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/281/jack-o-lantern_1f383.png",
+        "assets/spooky_ghost.png",
+        "assets/pumpkin.png",
       ],
-      maxSpeed: 1,
-    });    
-  } else if (isFall) {
-    initHolidayOverlay({
-      name: "Fall",
-      numFlakes: 3,
-      drawLines: false,
-      imageSrc: ["https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/whatsapp/302/maple-leaf_1f341.png"],
       maxSpeed: 1,
     });
-  } else if (isThanksgiving) {
+  } else if (isFall) {
+    const leafImg = "assets/leaf.png";
+    let items = 3;
+    const imgs = [leafImg];
+    if (isThanksgiving) {
+      items += 4;
+      imgs.push("🦃");
+      imgs.push("🍂");
+    }
     initHolidayOverlay({
-      name: "Thanksgiving",
-      numFlakes: 5,
+      name: "Fall",
+      numFlakes: items,
       drawLines: false,
-      imageSrc: [
-        "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/281/turkey_1f983.png",
-      ],
+      imageSrc: imgs,
       maxSpeed: 1,
     });
   } else if (isDecember) {
+    const date = new Date();
+    let numFlakes = date.getDate() * 2;
     initHolidayOverlay({
       name: "Christmas",
-      numFlakes: 30,
+      numFlakes: numFlakes,
       drawLines: false,
       maxSpeed: 3,
     });
@@ -229,18 +239,15 @@ function run() {
       name: "New Years",
       numFlakes: 5,
       drawLines: false,
-      imageSrc: [
-        "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/274/party-popper_1f389.png",
-      ],
+      imageSrc: ["assets/popper.png"],
       maxSpeed: 2,
     });
   }
 }
 
-
 window.test = () => {
   if (window.running) {
-    window.running = false
+    window.running = false;
     return;
   }
 
@@ -252,7 +259,7 @@ window.test = () => {
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/274/warning_26a0-fe0f.png",
     ],
     maxSpeed: 2,
-  });  
+  });
 };
 
 run();
