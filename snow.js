@@ -206,7 +206,7 @@ function run() {
       numFlakes: 4,
       drawLines: false,
       imageSrc: [
-        "/assets/spooky_ghost.png",
+        "/local/local/assets/spooky_ghost.png",
         "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/281/jack-o-lantern_1f383.png",
       ],
       maxSpeed: 1,
