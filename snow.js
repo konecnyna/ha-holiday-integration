@@ -125,7 +125,12 @@ function loop(ctx, flakes, drawLines, imageSrc, windowW, windowH) {
       ctx.fillStyle = "rgba(255, 255, 255, " + flakeA.alpha + ")";
     } else if (src.includes("http") || src.includes("/")) {
       background.src = src;
-      ctx.drawImage(background, flakeA.x, flakeA.y, 32, 32);
+      if (src.includes("santa_sleigh_PNG55")) {
+        ctx.drawImage(background, flakeA.x, flakeA.y, 160, 103);
+      } else {
+        ctx.drawImage(background, flakeA.x, flakeA.y, 32, 32);
+      }
+      
     } else {
       ctx.font = "20pt serif";
       ctx.fillStyle = "red";
@@ -176,12 +181,12 @@ console.log("Loaded ha-snow.js");
 
 const isMemorialDay = validateDate(5, makeRange(29, 31));
 const isFourth = validateDate(7, makeRange(3, 5));
-const isOctober = validateDate(10, makeRange(1, 31));
-const isHalloween = validateDate(10, makeRange(30, 31));
+const isOctober = false
+const isHalloween = false
 const isFall = validateDate(11, makeRange(1, 26));
 const isThanksgiving = validateDate(11, makeRange(20, 26));
-const isDecember = validateDate(12, makeRange(1, 25));
-const isChristmas = validateDate(12, makeRange(20, 25));
+const isDecember = true
+const isChristmas = true
 const isNewYears = validateDate(12, makeRange(29, 31)) || validateDate(12, makeRange(1, 1));
 
 function run() {
@@ -232,9 +237,10 @@ function run() {
       flakes.push("snow");
     }
     if (isChristmas) {
-      imgs.push("🎅");
-      imgs.push("🎄");
-      imgs.push("🎄");
+      flakes.push("https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/santas-sleigh.png");
+      flakes.push("🎄");
+      flakes.push("🎄");
+      flakes.push("🎄");
     }
 
     initHolidayOverlay({
