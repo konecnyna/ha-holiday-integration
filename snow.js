@@ -35,16 +35,12 @@ function makeCanvasElement() {
   canvasElement.style.pointerEvents = "none";
   canvasElement.style.top = "0";
 
-  //const view = document.querySelector("body > home-assistant").shadowRoot.querySelector("home-assistant-main").shadowRoot.querySelector("partial-panel-resolver > ha-panel-lovelace").shadowRoot.querySelector("hui-root").shadowRoot.querySelector("#layout")
-  // view.appendChild(canvasElement);
-
   document.body.appendChild(canvasElement);
   return canvasElement;
 }
 
 function initHolidayOverlay({
   name,
-  numFlakes,
   drawLines,
   imageSrc,
   maxSpeed,
@@ -62,7 +58,7 @@ function initHolidayOverlay({
   canvasElement.style.position = "absolute";
   canvasElement.style.pointerEvents = "none";
 
-  var i = numFlakes,
+  var i = imageSrc.length,
     flake,
     x,
     y;
@@ -122,26 +118,23 @@ function loop(ctx, flakes, drawLines, imageSrc, windowW, windowH) {
     }
 
     ctx.beginPath();
-    if (imageSrc && imageSrc.length) {
-      const src = imageSrc[i % imageSrc.length];
-      const background = new Image();
-      if (src.includes("http") || src.includes("/")) {
-        background.src = src;
-        ctx.drawImage(background, flakeA.x, flakeA.y, 32, 32);
-      } else {
-        ctx.font = "20pt serif";
-        ctx.fillStyle = "red";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(src, flakeA.x, flakeA.y);
-      }
-    } else {
+    const src = imageSrc[i % imageSrc.length];
+    const background = new Image();
+    if (src === "snow") {
       ctx.arc(flakeA.x, flakeA.y, flakeA.weight, 0, 2 * Math.PI, false);
       ctx.fillStyle = "rgba(255, 255, 255, " + flakeA.alpha + ")";
+    } else if (src.includes("http") || src.includes("/")) {
+      background.src = src;
+      ctx.drawImage(background, flakeA.x, flakeA.y, 32, 32);
+    } else {
+      ctx.font = "20pt serif";
+      ctx.fillStyle = "red";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(src, flakeA.x, flakeA.y);
     }
 
     ctx.fill();
-
     if (flakeA.y >= windowH) {
       flakeA.y = -flakeA.weight;
     }
@@ -184,67 +177,77 @@ console.log("Loaded ha-snow.js");
 const isMemorialDay = validateDate(5, makeRange(29, 31));
 const isFourth = validateDate(7, makeRange(3, 5));
 const isOctober = validateDate(10, makeRange(1, 31));
+const isHalloween = validateDate(10, makeRange(30, 31));
 const isFall = validateDate(11, makeRange(1, 26));
 const isThanksgiving = validateDate(11, makeRange(20, 26));
 const isDecember = validateDate(12, makeRange(1, 25));
+const isChristmas = validateDate(12, makeRange(20, 25));
 const isNewYears = validateDate(12, makeRange(29, 31)) || validateDate(12, makeRange(1, 1));
 
 function run() {
   if (isMemorialDay || isFourth) {
     initHolidayOverlay({
       name: isMemorialDay ? "Memorial Day" : "4th of July",
-      numFlakes: 6,
       drawLines: false,
-      imageSrc: [
-        "https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/usa.png",
-      ],
+      imageSrc: ["🇺🇸", "🇺🇸", "🇺🇸", "🇺🇸", "🇺🇸"],
       maxSpeed: 2,
     });
   } else if (isOctober) {
+    const imageSrcs = ["/local/local/assets/spooky_ghost.png", "🎃"]
+    if (isHalloween) {
+      imageSrcs.push("👻");
+      imageSrcs.push("💀");
+      imageSrcs.push("🍬");
+    }
+
     initHolidayOverlay({
       name: "Halloween",
-      numFlakes: 4,
       drawLines: false,
-      imageSrc: [
-        "/local/local/assets/spooky_ghost.png",
-        "https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/jack-o-lantern.png",
-      ],
+      imageSrc: imageSrcs,
       maxSpeed: 1,
     });
   } else if (isFall) {
-    const leafImg = "https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/maple-leaf.png";
-    let items = 3;
+    const leafImg = "🍁";
     const imgs = [leafImg];
     if (isThanksgiving) {
-      items += 4;
       imgs.push("🦃");
+      imgs.push("🦃");
+      imgs.push("🦃");
+      imgs.push("🍂");
+      imgs.push("🍂");
       imgs.push("🍂");
     }
 
     initHolidayOverlay({
       name: "Fall",
-      numFlakes: items,
       drawLines: false,
       imageSrc: imgs,
       maxSpeed: 1,
     });
   } else if (isDecember) {
     const date = new Date();
+    const flakes = []
     let numFlakes = date.getDate() * 2;
+    for (let i = 0; i < numFlakes; i++) {
+      flakes.push("snow");
+    }
+    if (isChristmas) {
+      imgs.push("🎅");
+      imgs.push("🎄");
+      imgs.push("🎄");
+    }
+
     initHolidayOverlay({
       name: "Christmas",
-      numFlakes: numFlakes,
       drawLines: false,
       maxSpeed: 3,
+      imageSrc: flakes,
     });
   } else if (isNewYears) {
     initHolidayOverlay({
       name: "New Years",
-      numFlakes: 5,
       drawLines: false,
-      imageSrc: [
-        "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/274/party-popper_1f389.png",
-      ],
+      imageSrc: ["🎉", "🎉", "🎉", "🎉", "🥂"],
       maxSpeed: 2,
     });
   }
@@ -258,11 +261,8 @@ window.test = () => {
 
   window.running = true;
   initHolidayOverlay({
-    numFlakes: 10,
     drawLines: false,
-    imageSrc: [
-      "https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/warning.png",
-    ],
+    imageSrc: ["https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/warning.png"],
     maxSpeed: 2,
   });
 };
