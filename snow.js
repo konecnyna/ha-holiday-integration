@@ -207,7 +207,7 @@ function run() {
       drawLines: false,
       imageSrc: [
         "/local/local/assets/spooky_ghost.png",
-        "https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/jack-o-lantern.png",
+        //"https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/jack-o-lantern.png",
       ],
       maxSpeed: 1,
     });
