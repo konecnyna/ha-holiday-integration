@@ -212,9 +212,7 @@ function run() {
       maxSpeed: 1,
     });
   } else if (isFall) {
-    const leafImg =
-      "https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/maple-leaf.png";
-
+    const leafImg = "https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/maple-leaf.png";
     let items = 3;
     const imgs = [leafImg];
     if (isThanksgiving) {
