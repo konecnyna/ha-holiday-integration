@@ -125,7 +125,7 @@ function loop(ctx, flakes, drawLines, imageSrc, windowW, windowH) {
       ctx.fillStyle = "rgba(255, 255, 255, " + flakeA.alpha + ")";
     } else if (src.includes("http") || src.includes("/")) {
       background.src = src;
-      if (src.includes("santa_sleigh_PNG55")) {
+      if (src.includes("santas-sleigh")) {
         ctx.drawImage(background, flakeA.x, flakeA.y, 160, 103);
       } else {
         ctx.drawImage(background, flakeA.x, flakeA.y, 32, 32);
