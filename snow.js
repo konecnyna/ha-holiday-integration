@@ -33,6 +33,7 @@ function makeCanvasElement() {
   canvasElement.style.backgroundColor = "transparent";
   canvasElement.style.position = "absolute";
   canvasElement.style.pointerEvents = "none";
+  canvasElement.style.top = "0";
 
   //const view = document.querySelector("body > home-assistant").shadowRoot.querySelector("home-assistant-main").shadowRoot.querySelector("partial-panel-resolver > ha-panel-lovelace").shadowRoot.querySelector("hui-root").shadowRoot.querySelector("#layout")
   // view.appendChild(canvasElement);
@@ -186,8 +187,7 @@ const isOctober = validateDate(10, makeRange(1, 31));
 const isFall = validateDate(11, makeRange(1, 26));
 const isThanksgiving = validateDate(11, makeRange(20, 26));
 const isDecember = validateDate(12, makeRange(1, 25));
-const isNewYears =
-  validateDate(12, makeRange(29, 31)) || validateDate(12, makeRange(1, 1));
+const isNewYears = validateDate(12, makeRange(29, 31)) || validateDate(12, makeRange(1, 1));
 
 function run() {
   if (isMemorialDay || isFourth) {
