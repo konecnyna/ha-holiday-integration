@@ -196,7 +196,7 @@ function run() {
       numFlakes: 6,
       drawLines: false,
       imageSrc: [
-        "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/flag-united-states_1f1fa-1f1f8.png",
+        "https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/usa.png",
       ],
       maxSpeed: 2,
     });
@@ -207,13 +207,13 @@ function run() {
       drawLines: false,
       imageSrc: [
         "/local/local/assets/spooky_ghost.png",
-        "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/281/jack-o-lantern_1f383.png",
+        "https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/jack-o-lantern.png",
       ],
       maxSpeed: 1,
     });
   } else if (isFall) {
     const leafImg =
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/whatsapp/302/maple-leaf_1f341.png";
+      "https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/maple-leaf.png";
 
     let items = 3;
     const imgs = [leafImg];
@@ -263,7 +263,7 @@ window.test = () => {
     numFlakes: 10,
     drawLines: false,
     imageSrc: [
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/274/warning_26a0-fe0f.png",
+      "https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/warning.png",
     ],
     maxSpeed: 2,
   });
