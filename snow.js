@@ -7,7 +7,15 @@ window.stop = () => (window.running = false);
 
 function Flake(x, y, maxSpeedConfig) {
   const maxWeight = 5;
-  const maxSpeed = maxSpeedConfig || 3;
+  
+  // Get the screen height
+  const screenHeight = window.innerHeight;
+
+  // Define a base speed for a standard screen height (adjust this based on a common reference, like 1080 for Full HD screens)
+  const standardScreenHeight = 1920;
+
+  // Adjust maxSpeed based on screen height
+  const maxSpeed = 3 * (screenHeight / standardScreenHeight);
 
   this.x = x;
   this.y = y;
