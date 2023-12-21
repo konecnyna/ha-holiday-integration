@@ -15,7 +15,7 @@ function Flake(x, y, maxSpeedConfig) {
   const standardScreenHeight = 1920;
 
   // Adjust maxSpeed based on screen height
-  const maxSpeed = 3 * (screenHeight / standardScreenHeight);
+  const maxSpeed = 1.25 * (screenHeight / standardScreenHeight);
 
   this.x = x;
   this.y = y;
