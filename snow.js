@@ -206,7 +206,7 @@ function run() {
       maxSpeed: 2,
     });
   } else if (isOctober) {
-    const imageSrcs = ["/local/local/assets/spooky_ghost.png", "🎃"]
+    const imageSrcs = ["@assets/spooky-ghost.png", "🎃"]
     if (isHalloween) {
       imageSrcs.push("👻");
       imageSrcs.push("💀");
