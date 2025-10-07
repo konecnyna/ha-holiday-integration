@@ -206,7 +206,7 @@ function run() {
       maxSpeed: 2,
     });
   } else if (isOctober) {
-    const imageSrcs = ["/local/ha-holiday-integration/assets/spooky-ghost.png", "🎃"]
+    const imageSrcs = ["https://raw.githubusercontent.com/konecnyna/ha-holiday-integration/main/assets/spooky-ghost.png", "🎃"]
     if (isHalloween) {
       imageSrcs.push("👻");
       imageSrcs.push("💀");
